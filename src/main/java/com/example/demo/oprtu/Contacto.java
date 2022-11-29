@@ -1,5 +1,7 @@
 package com.example.demo.oprtu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,11 +14,18 @@ public class Contacto {
     private String descripcion;
     @ManyToOne
     @JoinColumn(name = "id_oportunidad")
+    @JsonIgnore
     private Oportunidad oportunidad;
     private Date fecha;
     //0 one way - 1 round trip false 0 , true 1
 
+    public Contacto( String descripcion, Oportunidad oportunidad, Date fecha) {
+        super();
+        this.descripcion = descripcion;
+        this.oportunidad = oportunidad;
+        this.fecha = fecha;
 
+    }
     public long getId() {
         return id;
     }
@@ -60,12 +69,5 @@ public class Contacto {
     }
 
 
-    public Contacto(long id, String descripcion, Oportunidad oportunidad, Date fecha) {
-        super();
-        this.id = id;
-        this.descripcion = descripcion;
-        this.oportunidad = oportunidad;
-        this.fecha = fecha;
 
-    }
 }

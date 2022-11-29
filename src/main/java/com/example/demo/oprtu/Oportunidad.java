@@ -14,17 +14,17 @@ public class Oportunidad {
 
     @Id
     private long id;
-    private long idUsuario;
     @OneToMany(mappedBy = "oportunidad")
     private Set<Contacto> contactos;
     private boolean ConvertidoCliente;
     //0 one way - 1 round trip false 0 , true 1
 
 
-    public Oportunidad(long id, long idUsuario, Set<Contacto> contactos, boolean ConvertidoCliente) {
+    public Oportunidad() {
+    }
+
+    public Oportunidad( Set<Contacto> contactos, boolean ConvertidoCliente) {
         super();
-        this.id = id;
-        this.idUsuario = idUsuario;
         this.contactos = contactos;
         this.ConvertidoCliente = ConvertidoCliente;
     }
@@ -38,13 +38,7 @@ public class Oportunidad {
         this.id = id;
     }
 
-    public long getIdUsuario() {
-        return idUsuario;
-    }
 
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public Set<Contacto> getContactos() {
         return contactos;

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,25 +38,42 @@ class DemoApplicationTests {
 	@Test
 	public void testGetContactos() {
 
-		List<Contacto> contactos = contactoService.getContacto();
-		assertEquals(1,contactos.get(0).getId());
+		List<Contacto> contactos = contactoService.getContactos();
+		System.out.println(contactos);
+		assertEquals(50,contactos.get(0).getId());
 	}
 	@Test
-	public void testCrearContactos() {
-		Oportunidad opor = null;
-		Date fecha=null;
-		contactoService.crearContacto(40,"testConctacto",opor,fecha);
-		Contacto contacto = contactoService.getContactoById(40);
-		assertEquals(40,contacto.getId());
+	public void testGetContactoById() {
+
+		Contacto contacto = contactoService.getContactoById(50);
+		assertEquals(50,contacto.getId());
 	}
+
+
 	@Test
 	public void testGetContactosFuturos() {
 		List<Contacto> contactos = contactoService.getContactoFuturo();
-		assertEquals(2,contactos.get(0).getId());
+		assertEquals(60,contactos.get(0).getId());
 	}
 	//Test Oportunidad
+
 	@Test
-	public void testGetOportunidad() {
+	public void testCrearContactos() {
+		Oportunidad opor = oportunidadService.getOportunidades().get(0);
+		Date ahora = new Date(System.currentTimeMillis());
+		oportunidadService.crearContacto("testConctacto",opor,ahora);
+		List<Contacto> contactos = oportunidadService.getContactosOportunidadId(opor.getId());
+		System.out.println(contactos);
+		assertEquals(3,contactos.size());
+	}
+	@Test
+	public void testCrearOportunidad() {
+		Contacto contactoParaCrear = contactoService.getContactoById(50);
+		oportunidadService.crearOportunidad(contactoParaCrear,false);
+		assertEquals(1,oportunidadService.getOportunidades().get(2).getContactos().size());
+	}
+	@Test
+	public void testGetOportunidades() {
 
 		List<Oportunidad> Opor = oportunidadService.getOportunidades();
 		assertEquals(22,Opor.get(0).getId());
@@ -63,27 +81,41 @@ class DemoApplicationTests {
 	@Test
 	public void testGetOportunidadPorUsuario() {
 
-		List<Oportunidad> Opor = oportunidadService.getOportunidadesPorUsuario();
-		assertEquals(22,Opor.get(0).getId());
+		List<Oportunidad> OportunidadPorUsu = oportunidadService.getOportunidadesPorUsuario();
+		assertEquals(22,OportunidadPorUsu.get(0).getId());
 	}
 	@Test
-	public void testGetContactosDeOportunidad() {
+	public void testGetContactosDeOportunidadId() {
 
-		List<Contacto> Opor = oportunidadService.getContactosOportunidad();
-		assertEquals(22,Opor.get(0).getId());
+		List<Oportunidad> OportunidadPorC = oportunidadService.getOportunidades();
+		List<Contacto> conc = oportunidadService.getContactosOportunidadId(OportunidadPorC.get(0).getId());
+		assertEquals(2,conc.size());
+	}
+	@Test
+	public void testGetContactosFuturosDeOportunidadId() {
+
+		List<Oportunidad> OportunidadPorC = oportunidadService.getOportunidades();
+		List<Contacto> conc = oportunidadService.getContactosPlanesFuturosId(OportunidadPorC.get(0).getId());
+		assertEquals(1,conc.size());
 	}
 	@Test
 	public void testConvertir() {
 
 		List<Oportunidad> Opor = oportunidadService.getOportunidades();
-		oportunidadService.convertiraCLiente(Opor.get(0));
-		assertEquals(true,Opor.get(0).isConvertidoCliente());
+		oportunidadService.convertiraCLiente(Opor.get(1).getId());
+		assertEquals(true,Opor.get(1).isConvertidoCliente());
 	}
 	@Test
 	public void testGetCLientesDeOportunidad() {
 
 		List<Oportunidad> Opor = oportunidadService.getClientes();
 		assertEquals(23,Opor.get(0).getId());
+	}
+	@Test
+	public void testgetOportunidadByID() {
+
+		Oportunidad Opor = oportunidadService.getOportunidadByID(22);
+		assertEquals(22,Opor.getId());
 	}
 
 }
