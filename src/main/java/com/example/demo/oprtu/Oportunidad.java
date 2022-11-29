@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Oportunidad {
@@ -15,12 +16,12 @@ public class Oportunidad {
     private long id;
     private long idUsuario;
     @OneToMany(mappedBy = "oportunidad")
-    private List<Contacto> contactos;
+    private Set<Contacto> contactos;
     private boolean ConvertidoCliente;
     //0 one way - 1 round trip false 0 , true 1
 
 
-    public Oportunidad(long id, long idUsuario, List<Contacto> contactos, boolean ConvertidoCliente) {
+    public Oportunidad(long id, long idUsuario, Set<Contacto> contactos, boolean ConvertidoCliente) {
         super();
         this.id = id;
         this.idUsuario = idUsuario;
@@ -45,11 +46,11 @@ public class Oportunidad {
         this.idUsuario = idUsuario;
     }
 
-    public List<Contacto> getContactos() {
+    public Set<Contacto> getContactos() {
         return contactos;
     }
 
-    public void setContactos(List<Contacto> contactos) {
+    public void setContactos(Set<Contacto> contactos) {
         this.contactos = contactos;
     }
 
