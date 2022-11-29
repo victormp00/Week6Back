@@ -1,6 +1,8 @@
 package com.example.demo.oprtu;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 public class Contacto {
@@ -8,7 +10,9 @@ public class Contacto {
     @Id
     private long id;
     private String descripcion;
-    private long idOportunidad;
+    @ManyToOne
+    @JoinColumn(name = "id_oportunidad")
+    private Oportunidad oportunidad;
     private Date fecha;
     //0 one way - 1 round trip false 0 , true 1
 
@@ -29,12 +33,22 @@ public class Contacto {
         this.descripcion = descripcion;
     }
 
-    public long getIdOportunidad() {
-        return idOportunidad;
+    public Oportunidad getOportunidad() {
+        return oportunidad;
     }
 
-    public void setIdOportunidad(long idOportunidad) {
-        this.idOportunidad = idOportunidad;
+    public void setOportunidad(Oportunidad oportunidad) {
+        this.oportunidad = oportunidad;
+    }
+
+    @Override
+    public String toString() {
+        return "Contacto{" +
+                "id=" + id +
+                ", descripcion='" + descripcion + '\'' +
+                ", oportunidad=" + oportunidad +
+                ", fecha=" + fecha +
+                '}';
     }
 
     public Date getFecha() {
@@ -45,21 +59,12 @@ public class Contacto {
         this.fecha = fecha;
     }
 
-    @Override
-    public String toString() {
-        return "Contacto{" +
-                "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", idOportunidad=" + idOportunidad +
-                ", fecha=" + fecha +
-                '}';
-    }
 
-    public Contacto(long id, String descripcion, long idOportunidad, Date fecha) {
+    public Contacto(long id, String descripcion, Oportunidad oportunidad, Date fecha) {
         super();
         this.id = id;
         this.descripcion = descripcion;
-        this.idOportunidad = idOportunidad;
+        this.oportunidad = oportunidad;
         this.fecha = fecha;
 
     }

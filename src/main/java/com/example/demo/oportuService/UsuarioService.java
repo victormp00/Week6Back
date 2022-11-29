@@ -10,15 +10,21 @@ import java.util.List;
 public class UsuarioService {
     public UsuarioService() {
     }
+    private static List<Usuario> usuarios = new ArrayList<>();
+    private static Usuario usuario = new Usuario("admin","admin");
+	static {
 
-    private static Usuario usuario ;
+        usuarios.add(usuario);
 
+    }
 
 
 
     public static List<Usuario> getUsuarios(){
-        return null;
+        return usuarios;
     }
+
+    //Solo mira el usuario en vez de usuarios porque por ahora solo hay un usuario
     public static Boolean comprobarLog(String nombre, String contraseña){
         Boolean existe = false;
         int i=0;

@@ -21,11 +21,11 @@ class DemoApplicationTests {
 	@Test
 	public void testGetusuario() {
 		List<Usuario> usuarios = UsuarioService.getUsuarios();
-		assertEquals(true,true);
+		assertEquals("admin",usuarios.get(0).getNombre());
 	}
 	@Test
 	public void testLogIn() {
-		Boolean Log = UsuarioService.comprobarLog("nombre","contrasena");
+		Boolean Log = UsuarioService.comprobarLog("admin","admin");
 		assertEquals(true,Log);
 	}
 
